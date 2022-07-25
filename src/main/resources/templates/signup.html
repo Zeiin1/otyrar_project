@@ -11,13 +11,13 @@
 
 <div class="signupFrm">
     <div class="wrapper">
-        <form th:method="POST" th:action="@{/login}" th:object="${user}" class="form">
+        <form th:method="POST" th:action="@{/login}"  class="form">
             <h1 class="title">Sign in</h1>
 
             <div class="inputContainer">
-                <label for="email" class="label">Email</label>
-                <input type="text"  th:field="*{email}" id="email" class="input" placeholder="a"/>
-                <div style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error</div>
+                <label for="username" class="label">Email</label>
+                <input type="text" name="username" id="username" class="input" placeholder="a"/>
+
             </div>
 
 
@@ -25,8 +25,8 @@
 
             <div class="inputContainer">
                 <label for="password" class="label">Password</label>
-                <input type="text" th:field="*{password}" id="password" class="input" placeholder="a">
-                <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+                <input type="text" name="password" id="password" class="input" placeholder="a">
+
             </div>
 
 
