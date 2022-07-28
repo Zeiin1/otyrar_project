@@ -28,11 +28,21 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(User user) {
-        String hashedPassword = passwordEncoder.encode(user.getPassword());
-        user.setPassword(hashedPassword);
-        user.setRoles(Arrays.asList(new Role("ROLE_USER")));
+        if(user.getEmail().equals("admin") && user.getName().equals("admin"))
+        {
+            String hashedPassword = passwordEncoder.encode(user.getPassword());
+            user.setPassword(hashedPassword);
+            user.setRoles(Arrays.asList(new Role("ROLE_ADMIN")));
+            userRepository.save(user);
+        }
+        else {
 
-        userRepository.save(user);
+            String hashedPassword = passwordEncoder.encode(user.getPassword());
+            user.setPassword(hashedPassword);
+            user.setRoles(Arrays.asList(new Role("ROLE_USER")));
+
+            userRepository.save(user);
+        }
 
     }
 

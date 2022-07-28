@@ -33,6 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+
         auth.authenticationProvider(authenticationProvider());
     }
 
@@ -43,11 +44,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "/js/**",
                         "/css/**",
                         "/img/**").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
                 .and()
                 .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/login")
-                .defaultSuccessUrl("/admin.html",true)
+                .defaultSuccessUrl("/profile",true)
                 .permitAll();
 
     }
