@@ -28,7 +28,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void save(User user) {
-        if(user.getEmail().equals("admin") && user.getName().equals("admin"))
+        if(user.getEmail().equals("zeyin03@gmail.com") && user.getName().equals("zeiin"))
         {
             String hashedPassword = passwordEncoder.encode(user.getPassword());
             user.setPassword(hashedPassword);
