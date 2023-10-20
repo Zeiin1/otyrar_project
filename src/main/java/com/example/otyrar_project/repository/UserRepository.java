@@ -1,13 +1,17 @@
 package com.example.otyrar_project.repository;
 
+
 import com.example.otyrar_project.entity.User;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface UserRepository extends JpaRepository<User,String > {
+import java.util.List;
 
-    public User findUserByEmail(String email);
-    public User findUserById(String id);
-    public User findUserByName(String name);
+@Repository
+public interface UserRepository extends MongoRepository<User,String> {
+   public User findUserById(String id);
+   public User findByEmail(String email);
+   public List<User> findAll();
+
+
 }

@@ -84,7 +84,6 @@
         </div>
         <div class="table-content">
             <div class="table-row"  th:each="book : ${book}">
-                <div class="table-data"  th:text="${book.getId()}">info</div>
                 <div class="table-data" th:text="${book.getName()}">info</div>
                 <div class="table-data" th:text="${book.getAuthor()}">info</div>
                 <div class="table-data" th:text="${book.getYear()}">info</div>
