@@ -1,10 +1,11 @@
 package com.example.otyrar_project.service;
 
+import com.example.otyrar_project.entity.Book;
 import com.example.otyrar_project.entity.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
+import java.text.ParseException;
 import java.util.List;
-import java.util.Optional;
 
 public interface UserService extends UserDetailsService {
     void save(User user);
@@ -20,4 +21,5 @@ public interface UserService extends UserDetailsService {
     void deleteUser(String id);
     User updateUser(User user);
 
+    Book borrowBook(String id, String bookId) throws ParseException;
 }

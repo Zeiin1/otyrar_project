@@ -7,6 +7,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.validation.annotation.Validated;
 
+import java.util.Date;
 
 
 @Document(collection = "Book")
@@ -20,4 +21,5 @@ public class Book {
     private String author;
     private int year;
     private boolean available;
+    private Date returnDate;
 }

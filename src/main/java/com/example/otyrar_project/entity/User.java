@@ -14,6 +14,7 @@ import java.util.List;
 @Setter
 @Getter
 @ToString
+@Builder
 @Document(collection = "User")
 
 public class User {
@@ -28,6 +29,7 @@ public class User {
     private String email;
 
     private List<Role> roles;
+    private List<Book> books;
 
     public String getName() {
         return this.name;

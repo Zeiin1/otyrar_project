@@ -107,10 +107,12 @@
             <div class="left">
                 <div class="box1">
                     <div class="general">
-                        <h1 class="date">04.04.2022</h1>
-                        <h1 class="book_name">Hawking S.:
+                        <h1 class="date" th:text="${book.getReturnDate()}">04.04.2022</h1>
+                        <h1 class="book_name" th:text="${book.getName()}">Hawking S.:
                             The Theory of Everything</h1>
-                        <h1 class="book_id">Book id: #1004281</h1>
+                        <h1 class="book_author" th:text="${book.getAuthor()}">Hawking S.:
+                            The Theory of Everything</h1>
+                        <h1 class="book_id" th:text="${book.getId()}">Book id: #1004281</h1>
                         <h1 class="library">AITU scientific library</h1>
                     </div>
 
@@ -130,7 +132,7 @@
                             <circle cx="70" cy="70" r="70"></circle>
                         </svg>
                         <div class="number">
-                            <h2 id="num">5<span></span></h2>
+                            <h2 id="num" th:text="${days}">5<span></span></h2>
                         </div>
                     </div>
                     <h2 class="text" id="days">Days Left</h2>
@@ -173,7 +175,7 @@
                                 <i class="fa fa-check mr-2 text-primary"></i> Harry Potter
                             </li>
                         </ul>
-                        <a href="/library/books" class="btn btn-primary btn-block p-2 shadow rounded-pill">More</a>
+                         <a th:href="@{/library/books/{id}(id=${user.getId()})}" class="btn btn-primary btn-block p-2 shadow rounded-pill">More</a>
                     </div>
                 </div>
 

@@ -1,5 +1,6 @@
 package com.example.otyrar_project.service;
 
+import com.example.otyrar_project.entity.Book;
 import com.example.otyrar_project.entity.Role;
 import com.example.otyrar_project.entity.User;
 import com.example.otyrar_project.repository.UserRepository;
@@ -13,6 +14,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -26,6 +30,8 @@ public class UserServiceImpl implements UserService {
     private BCryptPasswordEncoder passwordEncoder;
     @Autowired
     MongoTemplate mongoTemplate;
+    @Autowired
+    private BookService bookService;
 
 
 
@@ -99,4 +105,29 @@ public class UserServiceImpl implements UserService {
 
         return user1;
     }
+
+    @Override
+    public Book borrowBook(String id, String bookId) throws ParseException {
+       Book book =  bookService.findById(bookId);
+       if(book!=null && book.isAvailable())
+       {
+           LocalDate localDate = LocalDate.now();
+           localDate.plusDays(14L);
+           SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+           Date date = sdf.parse(localDate.getMonthValue() + "/"+localDate.getDayOfMonth()+"/"+localDate.getYear());
+
+           book.setReturnDate(date);
+
+           book.setAvailable(false);
+           List<Book> books = new ArrayList<>();
+           books.add(book);
+           User user = findUserById(id);
+           user.setBooks(books);
+           mongoTemplate.save(user);
+           mongoTemplate.save(book);
+           return  book;
+       }
+       else return null;
+    }
+
 }

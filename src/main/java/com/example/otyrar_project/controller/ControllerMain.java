@@ -11,6 +11,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 
@@ -48,10 +54,34 @@ public class ControllerMain {
 
 
     @GetMapping("/profile")
-    public String profilePage(Model model, Authentication authentication) {
+    public String profilePage(Model model, Authentication authentication) throws ParseException {
 
         User user = userService.findUserByEmail(authentication.getName());
+        List<Book> books = user.getBooks();
+
         model.addAttribute("user", user);
+        if(books == null || books.size() == 0)
+        {
+            Date date = new Date();
+
+
+            Book book = new Book("1004281","Info about borrowed book will be there","Author name"
+                    ,1999,false,
+                    date);
+            model.addAttribute("book",book);
+            model.addAttribute("days",5);
+        }
+        else {
+           Book book = books.get(0);
+         //  int maxDays = book.getReturnDate().getDay();
+            int maxDays = 23;
+            LocalDate localDate = LocalDate.now();
+            int today = localDate.getDayOfMonth();
+            int leftedDays = maxDays - today;
+
+           model.addAttribute("book",book);
+            model.addAttribute("days",leftedDays);
+        }
         return "profile";
 
     }
@@ -88,9 +118,11 @@ public class ControllerMain {
         return "admin";
     }
 
-    @GetMapping("/books")
-    public String showAllBooks(Model model)
+    @GetMapping("/library/books/{id}")
+    public String showAllBooks(Model model,@PathVariable("id")String id)
     {
+        User user =userService.findUserById(id);
+        model.addAttribute("user",user);
        model.addAttribute("book", bookService.getAllBooks());
        return "booksPage";
     }
@@ -106,6 +138,22 @@ public class ControllerMain {
         bookService.save(book);
         return "redirect:/admin";
     }
+
+    @GetMapping("/books/borrow")
+    public String borrowBook(Model model,@ModelAttribute("id")String id,@ModelAttribute("bookId")String bookId) throws ParseException {
+       Book book =  userService.borrowBook(id,bookId);
+       if(book != null) {
+           User user = userService.findUserById(id);
+           model.addAttribute("user", user);
+           model.addAttribute("book", book);
+
+
+           model.addAttribute("days", 14);
+           return "profile";
+       }
+        return "redirect:/library/book/"+id;
+    }
+
 
 
 

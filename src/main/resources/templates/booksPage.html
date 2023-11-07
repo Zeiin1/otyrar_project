@@ -2,34 +2,38 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Library books page</title>
+    <title>Profile</title>
     <meta name="keywords" lang="ru" content="">
     <meta name="description" content="">
     <meta name="author" lang="ru" content="Gabdullin">
     <meta name="robots" content="all">
-    <link rel="icon" type="image/png" href="img/Icons/icon.png">
+    <link rel="icon" type="image/png" href="/img/Icons/icon.png">
+    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:500,700,800,900&display=swap&subset=cyrillic-ext"
           rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/app.css">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="src/with.js">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/app.css">
+    <link rel="stylesheet" href="/css/bootstrap.css">
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/with.js">
+    <link rel="stylesheet" type="text/css" href="/css/bookp.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css"
           integrity="sha512-T584yQ/tdRR5QwOpfvDfVQUidzfgc2339Lc8uBDtcp/wYu80d7jwBgAxbyMh0a9YM9F8N3tdErpFI8iaGx6x5g=="
           crossorigin="anonymous" referrerpolicy="no-referrer">
     <script src="https://kit.fontawesome.com/c98d165499.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="css/bookp.css">
+    <link rel="stylesheet" href="/css/backprof.css">
+
 </head>
 <body>
 <header class="header">
     <div class="header-content">
         <div class="logo">
             <a href="index.html">
-                <img class="logo__img" src="img/logo.png" alt="" width="196" height="47.6">
+                <img class="logo__img" src="/img/logo.png" alt="" width="196" height="47.6">
             </a>
         </div>
 
@@ -81,6 +85,7 @@
             <div class="header__item"><a id="year" class="filter__link filter__link--number" href="#">Published</a></div>
 
             <div class="header__item"><a id="available" class="filter__link filter__link--number" href="#">Available</a></div>
+            <div class="header__item"><a id="borrow" class="filter__link filter__link--number" href="#">Borrow</a></div>
         </div>
         <div class="table-content">
             <div class="table-row"  th:each="book : ${book}">
@@ -88,6 +93,7 @@
                 <div class="table-data" th:text="${book.getAuthor()}">info</div>
                 <div class="table-data" th:text="${book.getYear()}">info</div>
                 <div class="table-data"  th:text="${book.isAvailable()}">info</div>
+                <div class="table-data" ><a class="btn btn-primary" th:href="@{/books/borrow(id=${user.getId()}, bookId=${book.getId()})}">Book</a></div>
             </div>
 
         </div>
@@ -98,7 +104,7 @@
         <div class="row">
             <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
 
-                <img class="logo_img" src="img/logo.png" alt="" width="120" height="29">
+                <img class="logo_img" src="/img/logo.png" alt="" width="120" height="29">
 
                 <p>
                     if you have any questions or suggestions, you can contact us via messengers or by writing to us by mail
@@ -149,5 +155,5 @@
 </footer>
 
 </body>
-<script src="src/bp.js"></script>
+<script src="/src/bp.js"></script>
 </html>
